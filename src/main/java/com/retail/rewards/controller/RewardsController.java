@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -36,27 +34,14 @@ public class RewardsController {
     }
 
     /**
-     * Helper endpoint to get sample data and its reward calculation.
-     * Useful for demonstration purposes.
+     * Helper endpoint to get static mock transaction data and its reward calculation.
+     * Useful for demonstration purposes to show a proper three-month period.
      * 
      * @return Reward points summary for mock transactions
      */
     @GetMapping("/mock-demo")
     public ResponseEntity<List<RewardResponse>> getMockRewards() {
-        List<Transaction> mockTransactions = Arrays.asList(
-                // Customer 1: Month 1
-                new Transaction(1L, 1L, 120.0, LocalDate.now().minusMonths(2)),
-                new Transaction(2L, 1L, 80.0, LocalDate.now().minusMonths(2)),
-                // Customer 1: Month 2
-                new Transaction(3L, 1L, 150.0, LocalDate.now().minusMonths(1)),
-                // Customer 1: Month 3
-                new Transaction(4L, 1L, 60.0, LocalDate.now()),
-
-                // Customer 2: Month 1
-                new Transaction(5L, 2L, 200.0, LocalDate.now().minusMonths(2)),
-                // Customer 2: Month 2
-                new Transaction(6L, 2L, 40.0, LocalDate.now().minusMonths(1))
-        );
+        List<Transaction> mockTransactions = rewardsService.getMockTransactions();
         return ResponseEntity.ok(rewardsService.getRewards(mockTransactions));
     }
 }

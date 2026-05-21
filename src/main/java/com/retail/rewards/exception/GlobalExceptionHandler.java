@@ -13,6 +13,12 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Handles all generic exceptions and returns an Internal Server Error response.
+     *
+     * @param ex the generic exception
+     * @return a response entity containing the error message and status
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneralException(Exception ex) {
         Map<String, String> error = new HashMap<>();
@@ -21,6 +27,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.internalServerError().body(error);
     }
 
+    /**
+     * Handles invalid arguments and bad requests, returning a Bad Request response.
+     *
+     * @param ex the IllegalArgumentException
+     * @return a response entity containing the bad request error details
+     */
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<Map<String, String>> handleBadRequest(IllegalArgumentException ex) {
         Map<String, String> error = new HashMap<>();
